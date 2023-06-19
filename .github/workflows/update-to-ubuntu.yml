@@ -1,0 +1,35 @@
+name: Push and Pull
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  pull-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "Kashish Vyas"
+          git config --global user.email "kashish.vyas@mercedes-benz.com"
+
+      - name: Pull latest changes
+        run: git pull origin main
+
+      - name: Make changes
+        run: |
+          # Make your desired changes here
+          echo "Hello, World!" >> example.txt
+
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "Made changes via GitHub Actions"
+          git push origin main
